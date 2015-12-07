@@ -11,28 +11,9 @@
 
 <link rel="stylesheet" href="css/codemirror.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-<textarea id='pad' autofocus>Connecting...</textarea>
+<textarea id='text-box' autofocus></textarea>
 
-<script src="share.uncompressed.js"></script>
 <script src="js/codemirror/codemirror.js"></script>
-<script src="share-codemirror.js"></script>
 <script src="js/codemirror/modes/javascript/javascript.js" type="text/javascript" charset="utf-8"></script>
-
-<script>
-var cm = CodeMirror.fromTextArea( document.getElementById('pad') )
-cm.setOption('mode', 'javascript')
-//cm.setMode('javascript')
-var elem = document.getElementById('pad');
-// 
-var ws = new WebSocket('ws://' + window.location.host );
-// 
-var sjs = new window.sharejs.Connection( ws );
-// 
-var doc = sjs.get( 'users', 'seph' );
-// console.log(doc);
-doc.subscribe();
-doc.whenReady(function () {
-  if (!doc.type) doc.create('text');
-  if (doc.type && doc.type.name === 'text')
-  doc.attachCodeMirror(cm);
-});
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="js/script.js" type="text/javascript"></script>

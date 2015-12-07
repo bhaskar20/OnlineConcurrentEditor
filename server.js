@@ -6,7 +6,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser=require('body-parser');
 var sharejs = require('share');
-var duplex = require( 'stream' ).Duplex;
+var Duplex = require( 'stream' ).Duplex;
 var livedb = require('livedb');
 var backend = livedb.client( livedb.memory() );
 var share = sharejs.server.createClient({
@@ -26,11 +26,12 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 
 io.on('connection', function(socket){
-  Console.log('User Connected');
+	// console.log('server : ' + JSON.stringify(socket.server));
+	// console.log('client : ' + JSON.stringify(socket.client));
   var stream = new Duplex({ objectMode: true })
 
   stream._write = function(chunk, encoding, callback) {
-    console.log( 's->c ', chunk )
+    // console.log( 's->c ', chunk )
     socket.send( JSON.stringify(chunk) )
     return callback()
   }
@@ -43,10 +44,12 @@ io.on('connection', function(socket){
 */
   socket.on( 'message', function( data ) {
     console.log( 'c->s ', data );
-    return stream.push( JSON.parse(data) )
-  })
+    io.emit('change', data);
+    // return stream.push( JSON.parse(data) )
+  });
 
-/*  stream.on( 'error', function(msg) {
+  stream.on( 'error', function(msg) {
+    console.log( 'error', msg );
     return socket.close( msg )
   })
 
@@ -56,8 +59,8 @@ io.on('connection', function(socket){
     console.log( 'socket went away' )
     return socket.close( reason )
   })
-*/
-  stream.on( 'end', function() {
+
+  stream.on('end', function() {
     return socket.close()
   })
 
