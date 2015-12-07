@@ -1,13 +1,15 @@
 {
-	"name":"Online Concurrent Editor",
-	"version":"0.0.1",
-	"description":"simple Concurrent Editor",
-	"main":"server.js",
-	"author":"Bhaskar sharma,Kartik choudhary",
-	"dependencies":{
-		"express":"~4.7.2",
-		"mongoose":"~3.6.2",
-		"morgan":"~1.2.2",
-		"body-parser":"~1.5.2",
-	}
+  "name": "Online-Concurrent-Editor",
+  "version": "0.0.1",
+  "description": "simple Concurrent Editor",
+  "main": "server.js",
+  "author": "Bhaskar sharma,Kartik choudhary",
+  "dependencies": {
+    "express": "~4.7.2",
+    "mongoose": "~3.6.2",
+    "morgan": "~1.2.2",
+    "body-parser": "~1.5.2",
+    "socket.io": "~1.3.7",
+    "share": "~0.7.40"
+  }
 }
